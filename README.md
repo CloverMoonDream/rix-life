@@ -1,5 +1,11 @@
 # Rix · 在 QQ 上养一个长期存在的 AI
 
+**English**: [README.en.md](README.en.md) ｜ **部署**: [docs/部署教程.md](docs/部署教程.md) ｜ **我们改了什么**: [qq-bridge/MODIFICATIONS.md](qq-bridge/MODIFICATIONS.md)
+
+> **先说来源**：`qq-bridge/` **fork 自 [Derpyu520/qq-bridge](https://github.com/Derpyu520/qq-bridge)**（MIT）。
+> 运行时的基础是别人写的，我们改的是唤醒调度、记忆接线、发送控制和沙箱那一层——
+> 逐条列在 `MODIFICATIONS.md` 里。**`rix-brain/` 和 `sandbox/` 是我们自己的。**
+
 > 一份**诚实的工程记录**：怎么让一个 LLM 有连续的记忆、自己的时间、一块能动手的地方。
 >
 > **这不是产品，不是框架，也不是一键部署。** 它是一套跑了一个多月、每天在用的系统里，
@@ -14,6 +20,18 @@
 3. **它不是开箱即用的。** 我们写清了依赖和门槛，**跑不起来是正常的**，看懂思路才是目的。
 
 ---
+
+## 数据怎么流
+
+```
+QQ ──► SnowLuma ──► qq-bridge ──► DSH ──► rix-brain
+        (协议)       (唤醒/发送)   (宿主)    (记忆)
+                                        │
+                                        └──► 沙箱(WSL)：它能动手的地方
+```
+
+**记忆在 Python 那边，唤醒在 Node 那边，模型在 DSH 那边。**
+三件事分开，任何一件坏了，其余两件还能单独测。
 
 ## 三块可以单独拿走的零件
 
@@ -57,6 +75,22 @@ sandbox/sandbox-net.sh
 **这是最值钱的部分。** 里面那几条 iptables 的顺序，是我们踩坏的（WSL 的 DNS 在 `10.255.255.254`，属于 `10/8`——先拒绝就全断网）。
 
 ---
+
+## 最短路径（想先看看）
+
+```bash
+# 1) 只看记忆引擎能不能用（不需要 QQ、不需要 DSH）
+cd rix-brain
+cp config.example.json config.json     # 填一个 OpenAI 兼容的 key
+pip install -r requirements.txt        # 其实是空的，只用标准库
+python -m unittest discover -s tests   # 176 个，2~4 秒
+
+# 2) 看那条鱼（纯标准库，不需要任何东西）
+cd sandbox/example-fish
+python fish.py --demo
+
+# 3) 要整套 → 看 docs/部署教程.md（约 3~6 小时）
+```
 
 ## 真实数字（不是估算）
 
@@ -178,6 +212,7 @@ rix-brain/            记忆引擎
   brain/              实现
   server/             MCP server
   tests/              176 个用例
+  bench/              20 条召回基准（查询+脚本；语料不给，见里面的说明）
 qq-bridge/            运行时（QQ 接入 + 唤醒 + 发送）
   src/ scripts/ docs/
 sandbox/              隔离配方

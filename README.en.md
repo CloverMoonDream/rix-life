@@ -1,5 +1,12 @@
 # Rix · Raising a long-lived AI on QQ
 
+**中文**: [README.md](README.md) ｜ **Deployment**: [docs/部署教程.md](docs/部署教程.md) ｜ **What we changed**: [qq-bridge/MODIFICATIONS.md](qq-bridge/MODIFICATIONS.md)
+
+> **Provenance first**: `qq-bridge/` is a **fork of [Derpyu520/qq-bridge](https://github.com/Derpyu520/qq-bridge)** (MIT).
+> The runtime foundation is someone else's work. What we changed is wake scheduling, memory wiring,
+> send control and the sandbox layer — itemised in `MODIFICATIONS.md`.
+> **`rix-brain/` and `sandbox/` are ours.**
+
 > An **honest engineering log**: how we gave an LLM continuous memory, a life of its own on a clock,
 > and a place where it can actually do things.
 >
@@ -16,6 +23,18 @@
 3. **It is not ready to run.** We list dependencies and thresholds plainly. **Failing to boot is expected**; understanding the design is the point.
 
 ---
+
+## How data flows
+
+```
+QQ ──► SnowLuma ──► qq-bridge ──► DSH ──► rix-brain
+      (protocol)   (wake/send)  (host)   (memory)
+                                      │
+                                      └──► sandbox (WSL): where it can act
+```
+
+**Memory lives in Python, waking lives in Node, the model lives in DSH.**
+Three separate things — if one breaks, the other two can still be tested alone.
 
 ## Three parts you can take separately
 
@@ -60,6 +79,21 @@ sandbox/sandbox-net.sh
 WSL's resolver lives at `10.255.255.254`, inside `10/8` — reject first and the box loses all networking.
 
 ---
+
+## Shortest path (just to look)
+
+```bash
+# 1) Memory engine only — no QQ, no DSH
+cd rix-brain
+cp config.example.json config.json     # put any OpenAI-compatible key in it
+python -m unittest discover -s tests   # 176 cases, 2–4 s
+
+# 2) The fish (stdlib only, needs nothing)
+cd sandbox/example-fish
+python fish.py --demo
+
+# 3) Full stack → docs/部署教程.md (3–6 hours the first time)
+```
 
 ## Real numbers (measured, not estimated)
 
