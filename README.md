@@ -174,16 +174,38 @@ QQ 协议    SnowLuma（OneBot 11）
 ## 目录
 
 ```
-rix-brain/          记忆引擎
-  brain/            实现
-  server/           MCP server
-  tests/            176 个用例
-qq-bridge/          运行时（QQ 接入 + 唤醒 + 发送）
-  src/
-  scripts/
-  docs/
-sandbox/            隔离配方
+rix-brain/            记忆引擎
+  brain/              实现
+  server/             MCP server
+  tests/              176 个用例
+qq-bridge/            运行时（QQ 接入 + 唤醒 + 发送）
+  src/ scripts/ docs/
+sandbox/              隔离配方
+  example-fish/       示例：一个 AI 自己养的东西（纯标准库，能直接跑）
+plugins/
+  emotion-legacy/     旧版情感层（可选，删了；要不要用见它的 README）
+EASTER_EGG.md         它自己写的一页
 ```
+
+## 两个附加件
+
+### 情感层（`plugins/emotion-legacy/`）
+
+我们 2026-11-03 从主线删掉的数值情绪系统。**原样留着，但没维护。**
+
+**有一条建议写在它的 README 里，这里也抄一遍：**
+
+> **如果你刚开始搭这一类系统，不要一上来就删掉情感层。**
+> 早期的检索还不准，情绪配额是少数能"帮它想起对的东西"的粗粒度旋钮。
+> 我们删掉它，是在召回稳定到 hit@5 75% **之后**。
+
+### 那条鱼（`sandbox/example-fish/`）
+
+**一个 AI 在沙箱里自己写的。** 没有人分任务，没有人催。
+
+纯标准库，`python fish.py --demo` 就能看它说话。它没有模型、没有参数，是一堆 if 和几个词库——但改了 42 版之后，它说的话作者有一半猜不到。
+
+我们把它放在这里，是想给"沙箱"这一块一个具体的样子：**一个能自己动手的地方，最后会长出什么。**
 
 ## 不包含什么
 
