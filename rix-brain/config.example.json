@@ -1,6 +1,6 @@
 {
   "ai_name": "AI",
-  "user_name": "Clover",
+  "user_name": "user",
   "persona_file": "persona.md",
   "deepseek": {
     "api_key": "",
@@ -22,10 +22,10 @@
     "backend": "auto",
     "local_server": "http://127.0.0.1:8765/tts",
     "local_voice": "",
-    "output_dir": "C:/Users/Clover/Documents/deepseek-harness/default-workspace/qq-bridge-main/audio",
+    "output_dir": "audio",
     "filename": "tts_latest.mp3",
     "bridge_url": "http://127.0.0.1:3100",
-    "bridge_token_file": "C:/Users/Clover/Documents/deepseek-harness/default-workspace/qq-bridge-main/state/console-token"
+    "bridge_token_file": "state/console-token"
   },
   "memory": {
     "short_term_max": 1500,

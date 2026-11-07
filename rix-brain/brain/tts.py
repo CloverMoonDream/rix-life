@@ -15,7 +15,7 @@ import config
 _lock = threading.Lock()
 
 DEFAULT_VOICE = "zh-CN-XiaoxiaoNeural"
-DEFAULT_OUT = r"C:/Users/Clover/Documents/deepseek-harness/default-workspace/qq-bridge-main/audio"
+DEFAULT_OUT = os.environ.get("RIX_TTS_OUT", os.path.join(os.getcwd(), "audio"))
 DEFAULT_NAME = "tts_latest.mp3"
 
 

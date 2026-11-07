@@ -8,13 +8,27 @@
   `2026-10-29-用户的高数与风扇.txt`、`关于作者和我的关系.txt`
 不合法（如 `1.txt`、`笔记.txt`、`新文件.txt`）会被工具拒绝。
 
-存储：D:\\AI\\笔记\\   （UTF-8 纯文本，只收 .txt）
+存储：<数据目录>/notes/   （UTF-8 纯文本，只收 .txt；可用环境变量 RIX_NOTES_DIR 覆盖）
 """
 import os
 import re
 import time
 
-ROOT = os.path.join("D:\\", "AI", "笔记")
+import config
+
+def _default_root():
+    """默认落在数据目录下的 notes/。
+
+    导入时会试一次 config（那时可能还没有 config.json，比如刚克隆下来跑测试），
+    失败就退到当前目录，**不让 import 阶段抛异常**。
+    """
+    try:
+        return os.path.join(config.data_dir(), "notes")
+    except Exception:
+        return os.path.join(os.getcwd(), "notes")
+
+
+ROOT = os.environ.get("RIX_NOTES_DIR") or _default_root()
 MAX_WRITE = 200_000      # 单文件上限（字符）
 MAX_READ = 6000          # 单次读回上限（字符）
 

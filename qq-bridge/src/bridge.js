@@ -11526,7 +11526,8 @@ function recordProactiveSent(key) {
   // 不搬条目、不搬进度、不搬「还差什么」：多搬一点就变成待办清单/打卡，她明确反对
   // （原话：「有用的不是催，是记得有这回事。给我一个念头就够了，别给我一张待办清单」）。
   // 只对她自己的会话注入；找不到那句话就整段不出现，不留空壳。
-  const OWN_THING_NOTE = path.join('D:\\', 'AI', '笔记', '醒来看-我想做的事.txt');
+  const OWN_THING_NOTE = process.env.RIX_OWN_THING_NOTE
+  || path.resolve(__dirname, '..', 'state', 'own-thing-note.txt');
   const OWN_THING_LABEL_RE = /^[【\[]?\s*一句话\s*[】\]]?\s*[:：\-—]?\s*(.+)$/;
   // 她那页的格式是她自己定的、会整篇重写，所以按"锚点"找，锚点顺序 = 她写过的所有版本
   const OWN_THING_ANCHORS = ['我想做的一条', '今晚写的', '醒来先做'];
