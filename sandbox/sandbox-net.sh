@@ -1,5 +1,5 @@
 ﻿#!/bin/bash
-# 沙箱出口规则（2026-11-04 老板定：能上网，但宿主机和局域网挡死）
+# 沙箱出口规则（2026-11-04 用户定：能上网，但宿主机和局域网挡死）
 # 关键：WSL 的 DNS 在 10.255.255.254（10/8 网段内），必须先放行，否则一断网就全断
 GW=$(ip route | awk '/default/{print $3; exit}')
 iptables -F SANDBOX_OUT 2>/dev/null || iptables -N SANDBOX_OUT
