@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+node_modules/
+*.log
+*.jsonl
+state/
+AI_data/
+config.json
+!config.example.json
+*.bak*
+.coverage/

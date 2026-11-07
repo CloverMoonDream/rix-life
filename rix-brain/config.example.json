@@ -1,0 +1,57 @@
+{
+  "ai_name": "AI",
+  "user_name": "Clover",
+  "persona_file": "persona.md",
+  "deepseek": {
+    "api_key": "",
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash"
+  },
+  "retrieval": {
+    "mode": "rerank",
+    "candidate_limit": 10,
+    "top_k": 3
+  },
+  "embedding": {
+    "base_url": "",
+    "api_key": "",
+    "model": ""
+  },
+  "tts": {
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "backend": "auto",
+    "local_server": "http://127.0.0.1:8765/tts",
+    "local_voice": "",
+    "output_dir": "C:/Users/Clover/Documents/deepseek-harness/default-workspace/qq-bridge-main/audio",
+    "filename": "tts_latest.mp3",
+    "bridge_url": "http://127.0.0.1:3100",
+    "bridge_token_file": "C:/Users/Clover/Documents/deepseek-harness/default-workspace/qq-bridge-main/state/console-token"
+  },
+  "memory": {
+    "short_term_max": 1500,
+    "short_term_recall_turns": 40,
+    "summarize_threshold": 16,
+    "short_term_keep_after_summary": 8,
+    "auto_summarize_at": 24,
+    "auto_summarize_interval": 600,
+    "auto_summarize_cooldown": 1800,
+    "idle_summarize_seconds": 900,
+    "idle_summarize_min_entries": 4,
+    "frequency_initial": 20,
+    "auto_merge_days": true
+  },
+  "health": {
+    "enabled": true,
+    "mail": {
+      "host": "imap.qq.com",
+      "port": 993,
+      "user": "24498977@qq.com",
+      "pass": "intuljbcoqisbghi",
+      "folder": "INBOX"
+    },
+    "poll_seconds": 300
+  },
+  "emotion": {
+    "proactive_penalty": false
+  }
+}
